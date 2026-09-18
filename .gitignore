@@ -247,3 +247,12 @@ data_dictionary/
 
 # Script de download e perfil executado na maquina local, fora do pipeline
 src/aneel_download.py
+
+# Extracoes de autoria propria a partir dos dicionarios da ANEEL e tabelas de-para
+# ficam em data/reference/ e SAO versionadas: sem elas o dicionario de dados nao se
+# regenera em outra maquina
+!data/reference/
+
+# Backups locais e arquivos temporarios do Office
+*.bak
+~$*
