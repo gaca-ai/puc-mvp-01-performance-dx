@@ -216,3 +216,34 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ---------------------------------------------------------------------------
+# MVP ANEEL - dados e material de apoio
+# ---------------------------------------------------------------------------
+
+# Arquivos brutos baixados do portal da ANEEL. Sao reproduziveis pelo pipeline
+# (notebooks/02_bronze_ingestion) e alguns passam de 100 MB, limite do GitHub.
+data/raw/
+data/profile_report.*
+data/describe_*.md
+*.parquet
+
+# CSV grande da base de atendimento emergencial, mantido apenas em disco local
+indicador-atendimento-emergencial.csv
+
+# Material didatico do curso: nao e producao propria e nao integra a entrega
+material_didatico/
+
+# Documentos de referencia regulatoria e planilhas de apoio de terceiros.
+# As tabelas de-para de autoria propria vivem em reference/ e sao versionadas.
+aux_files/
+
+# Notas de sessao: registro de trabalho interno, consolidado no README ao final
+md/sessions.md
+
+# Dicionarios de dados publicados pela ANEEL: material de terceiros, citado no
+# README pela URL do portal em vez de redistribuido aqui
+data_dictionary/
+
+# Script de download e perfil executado na maquina local, fora do pipeline
+src/aneel_download.py
