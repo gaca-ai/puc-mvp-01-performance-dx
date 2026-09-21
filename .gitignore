@@ -227,6 +227,7 @@ data/raw/
 data/profile_report.*
 data/describe_*.md
 *.parquet
+data/pre-analise
 
 # CSV grande da base de atendimento emergencial, mantido apenas em disco local
 indicador-atendimento-emergencial.csv
