@@ -257,3 +257,5 @@ src/aneel_download.py
 # Backups locais e arquivos temporarios do Office
 *.bak
 ~$*
+# Backups html
+docs/img/*.zip
