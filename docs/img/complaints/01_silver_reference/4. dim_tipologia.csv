@@ -1,0 +1,62 @@
+bloco,cod_nivel_2,desc_nivel_2,tipologias
+null,null,null,3
+null,10201,Conexão,1
+null,10202,Cadastro / Contratos,1
+null,10203,Medição,1
+null,10204,Leitura / Faturamento / Fatura,1
+null,10205,Cobranças,1
+null,10206,Pagamento / Inadimplência / Suspensão,1
+null,10207,Procedimento Irregular,1
+null,10208,Atendimento / Estrutura de Atendimento,1
+null,10209,Qualidade,1
+null,10210,Ressarcimento de Danos Elétricos,1
+null,10212,Rede / Manutenção,1
+null,10213,Geração Distribuída,1
+comercial_estrito,10201,Conexão,6
+comercial_estrito,10202,Cadastro / Contratos,5
+comercial_estrito,10203,Medição,4
+comercial_estrito,10204,Leitura / Faturamento / Fatura,15
+comercial_estrito,10205,Cobranças,6
+comercial_estrito,10206,Pagamento / Inadimplência / Suspensão,7
+comercial_estrito,10207,Procedimento Irregular,6
+comercial_estrito,10208,Atendimento / Estrutura de Atendimento,6
+comercial_estrito,10211,Outros Danos (não elétricos),1
+comercial_estrito,10213,Geração Distribuída,5
+comercial_estrito,10214,Prazos (não previstos nas tipologias anteriores),1
+comercial_estrito,10215,Instalações internas,1
+comercial_estrito,10216,Iluminação Pública,1
+comercial_estrito,10217,Outros,1
+fora_da_familia_102,null,null,5
+fora_da_familia_102,10101,Conexão,1
+fora_da_familia_102,10102,Cadastro / Contratos,1
+fora_da_familia_102,10103,Benefícios Tarifários,1
+fora_da_familia_102,10104,Medição / Equipamentos de Medição,1
+fora_da_familia_102,10105,Leitura,1
+fora_da_familia_102,10106,Tarifas / Fatura / Faturamento / Cobrança,1
+fora_da_familia_102,10107,Serviços Cobráveis,1
+fora_da_familia_102,10108,Pagamento,1
+fora_da_familia_102,10109,Suspensão do Fornecimento,1
+fora_da_familia_102,10110,Procedimento Irregular,1
+fora_da_familia_102,10111,Atendimento / Estrutura de Atendimento,1
+fora_da_familia_102,10112,Qualidade da Prestação do Serviço,1
+fora_da_familia_102,10113,Ressarcimento de Danos Elétricos,1
+fora_da_familia_102,10114,Rede / Manutenção,1
+fora_da_familia_102,10115,Geração Distribuída,1
+fora_da_familia_102,10116,Prazos / acompanhamento de solicitação,1
+fora_da_familia_102,10117,Instalação Interna,1
+fora_da_familia_102,10118,Iluminação Pública,1
+fora_da_familia_102,10119,Legislação do Setor Elétrico ou correlata,1
+fora_da_familia_102,10120,Normas e Padrões Técnicos da distribuidora,1
+fora_da_familia_102,10121,Eficiência Energética / Racionalização do consumo,1
+fora_da_familia_102,10122,Caminho do entendimento (orientação para contato em outro nível),1
+fora_da_familia_102,10199,Outros,1
+fora_da_familia_102,10401,Ligação Clandestina,1
+fora_da_familia_102,10402,Fraude/Desvio de Energia Elétrica,1
+fora_da_familia_102,10403,Contra empregado ou prestador de serviço da distribuidora,1
+fora_da_familia_102,10404,Danos Ambientais,1
+fora_da_familia_102,10405,Furtos de cabos e fiações elétricas,1
+fora_da_familia_102,10406,Outros,1
+rede_e_qualidade_outros,10209,Qualidade,1
+rede_e_qualidade_outros,10212,Rede / Manutenção,7
+tecnico,10209,Qualidade,4
+tecnico,10210,Ressarcimento de Danos Elétricos,6
