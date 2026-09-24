@@ -1,0 +1,133 @@
+cod_tipologia,descricao,nivel,cod_pai
+101,INFORMAÇÃO,1,
+10101,Conexão,2,101
+10102,Cadastro / Contratos,2,101
+10103,Benefícios Tarifários,2,101
+10104,Medição / Equipamentos de Medição,2,101
+10105,Leitura,2,101
+10106,Tarifas / Fatura / Faturamento / Cobrança,2,101
+10107,Serviços Cobráveis,2,101
+10108,Pagamento,2,101
+10109,Suspensão do Fornecimento,2,101
+10110,Procedimento Irregular,2,101
+10111,Atendimento / Estrutura de Atendimento,2,101
+10112,Qualidade da Prestação do Serviço,2,101
+10113,Ressarcimento de Danos Elétricos,2,101
+10114,Rede / Manutenção,2,101
+10115,Geração Distribuída,2,101
+10116,Prazos / acompanhamento de solicitação,2,101
+10117,Instalação Interna,2,101
+10118,Iluminação Pública,2,101
+10119,Legislação do Setor Elétrico ou correlata,2,101
+10120,Normas e Padrões Técnicos da distribuidora,2,101
+10121,Eficiência Energética / Racionalização do consumo,2,101
+10122,Caminho do entendimento (orientação para contato em outro nível),2,101
+10199,Outros,2,101
+102,RECLAMAÇÃO,1,
+10201,Conexão,2,102
+1020101,Solicitação não atendida ou atrasada,3,10201
+1020102,Orçamento - Participação financeira / Universalização,3,10201
+1020103,Restituição de antecipação,3,10201
+1020104,Prazos (ligação com obras),3,10201
+1020105,Prazos (ligação sem obras),3,10201
+1020199,Outros,3,10201
+10202,Cadastro / Contratos,2,102
+1020201,Cadastro,3,10202
+1020202,Uso não autorizado de dados cadastrais,3,10202
+1020203,Contratos / Encerramento contratual,3,10202
+1020204,Troca de titularidade,3,10202
+1020299,Outros,3,10202
+10203,Medição,2,102
+1020301,Ausência do medidor/sistema de medição,3,10203
+1020302,Avaria/Defeito medidor/sistema de medição,3,10203
+1020303,Lacre,3,10203
+1020399,Outros,3,10203
+10204,Leitura / Faturamento / Fatura,2,102
+1020401,Impedimento de acesso,3,10204
+1020402,Erro de leitura,3,10204
+1020403,Variação de consumo,3,10204
+1020404,Demais grandezas faturadas,3,10204
+1020405,Tarifas aplicadas,3,10204
+1020406,Classificação / Subsídios tarifários,3,10204
+1020407,Faturamento por estimativa / média,3,10204
+1020408,Faturamento pelo custo de disponibilidade,3,10204
+1020409,Compensação / Devolução não realizada / incorreta,3,10204
+1020410,Bandeiras Tarifárias,3,10204
+1020411,Tributos,3,10204
+1020412,Contribuição para o Custeio dos Serviços de Iluminação Pública - COSIP,3,10204
+1020413,Apresentação / Entrega da fatura,3,10204
+1020414,Qualidade da impressão da fatura,3,10204
+1020499,Outros,3,10204
+10205,Cobranças,2,102
+1020501,Acréscimos moratórios - Multas e juros,3,10205
+1020502,Cobranças de períodos anteriores,3,10205
+1020503,Parcelamento de débito,3,10205
+1020504,Serviços cobráveis,3,10205
+1020505,Atividades acessórias,3,10205
+1020599,Outros,3,10205
+10206,Pagamento / Inadimplência / Suspensão,2,102
+1020601,Fatura paga e não baixada,3,10206
+1020602,Indisponibilidade / Inexistência de posto de arrecadação no Município,3,10206
+1020603,Suspensão indevida,3,10206
+1020604,Religação não realizada / fora do prazo,3,10206
+1020605,Inscrição em Cadastro de Negativação,3,10206
+1020606,Atuação de empresa de cobrança,3,10206
+1020699,Outros,3,10206
+10207,Procedimento Irregular,2,102
+1020701,Valores cobrados,3,10207
+1020702,Deficiência na caracterização da irregularidade,3,10207
+1020703,Não recebimento do TOI - Termo de Ocorrência e Inspeção,3,10207
+1020704,Responsabilidade sobre a Irregularidade,3,10207
+1020705,Cobrança decorrente de religação à revelia,3,10207
+1020799,Outros,3,10207
+10208,Atendimento / Estrutura de Atendimento,2,102
+1020801,Conduta de empregado ou prestador de serviço,3,10208
+1020802,Atendimento Presencial / Falta de agência / posto de atendimento,3,10208
+1020803,Atendimento Telefônico,3,10208
+1020804,Atendimento pela Internet,3,10208
+1020805,Demais canais de acesso,3,10208
+1020899,Outros,3,10208
+10209,Qualidade,2,102
+1020901,Interrupção no Fornecimento - Falta de energia,3,10209
+1020902,Interrupção Frequente do Fornecimento,3,10209
+1020903,Interrupção Programada,3,10209
+1020904,Tensão de Fornecimento,3,10209
+1020999,Outros,3,10209
+10210,Ressarcimento de Danos Elétricos,2,102
+1021001,Danos em equipamentos,3,10210
+1021002,Vistoria dos Equipamentos,3,10210
+1021003,Laudo/orçamento,3,10210
+1021004,Ressarcimento inferior ao devido,3,10210
+1021005,Indeferimento total / parcial,3,10210
+1021099,Outros,3,10210
+10211,Outros Danos (não elétricos),2,102
+10212,Rede / Manutenção,2,102
+1021201,Cabo partido,3,10212
+1021202,Poste,3,10212
+1021203,Transformador,3,10212
+1021204,Objeto na rede,3,10212
+1021205,Poda de árvore,3,10212
+1021206,Entulhos / Galhos de árvores não recolhidos,3,10212
+1021299,Outros,3,10212
+10213,Geração Distribuída,2,102
+1021301,Conexão,3,10213
+1021302,Faturamento,3,10213
+1021303,Variação de Consumo,3,10213
+1021304,Apresentação / Entrega de Fatura,3,10213
+1021399,Outros,3,10213
+10214,Prazos (não previstos nas tipologias anteriores),2,102
+10215,Instalações internas,2,102
+10216,Iluminação Pública,2,102
+10217,Outros,2,102
+103,SOLICITAÇÃO DE SERVIÇOS,1,
+104,DENÚNCIA,1,
+10401,Ligação Clandestina,2,104
+10402,Fraude/Desvio de Energia Elétrica,2,104
+10403,Contra empregado ou prestador de serviço da distribuidora,2,104
+10404,Danos Ambientais,2,104
+10405,Furtos de cabos e fiações elétricas,2,104
+10406,Outros,2,104
+105,ELOGIO,1,
+106,SUGESTÃO,1,
+107,CANCELAMENTO DE SERVIÇOS,1,
+108,ENCERRAMENTO CONTRATUAL,1,
