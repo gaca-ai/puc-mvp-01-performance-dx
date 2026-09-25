@@ -1,0 +1,33 @@
+sig_agente,total_procedentes,faturamento,pagamento,outras_comerciais,total_recebidas,quadrante_p3,quadrante_n2,posicao_qualidade,posicao_dec_fi
+ERO,1,3,1,5,5,recebidas e taxa em queda,N1 e N2 em queda,2,6
+Âmbar Amazonas,2,2,3,9,3,recebidas e taxa em queda,N1 e N2 em queda,19,16
+EMT,3,4,6,4,7,recebidas e taxa em queda,"N1 em queda, N2 em alta",11,12
+EMS,4,7,12,2,4,recebidas e taxa em queda,"N1 em queda, N2 em alta",10,25
+ENEL RJ,5,1,5,31,2,"recebidas em queda, taxa em alta","N1 em queda, N2 em alta",8,11
+EDP ES,6,12,9,3,16,recebidas e taxa em queda,"N1 em queda, N2 em alta",15,17
+CEEE-D,7,16,13,1,27,"recebidas em alta, taxa em queda","N1 em alta, N2 em queda",1,2
+CEMIG-D,8,10,18,7,1,"recebidas em queda, taxa em alta",N1 e N2 em queda,23,9
+EQUATORIAL AL,9,6,7,16,6,"recebidas em queda, taxa em alta",N1 e N2 em queda,22,4
+ELEKTRO,10,19,15,10,21,"recebidas em alta, taxa em queda",N1 e N2 em alta,21,30
+EDP SP,11,5,25,13,20,"recebidas em alta, taxa em queda",N1 e N2 em alta,12,15
+ELETROPAULO,12,24,8,6,13,recebidas e taxa em queda,"N1 em queda, N2 em alta",4,10
+ETO,13,9,22,14,12,"recebidas em queda, taxa em alta","N1 em queda, N2 em alta",6,13
+ESS,14,25,21,8,14,recebidas e taxa em queda,"N1 em queda, N2 em alta",20,32
+EQUATORIAL PA,15,15,11,15,8,"recebidas em queda, taxa em alta",N1 e N2 em queda,24,21
+ESE,16,30,2,11,9,"recebidas em queda, taxa em alta","N1 em queda, N2 em alta",14,20
+ENEL CE,17,22,10,22,10,"recebidas em queda, taxa em alta","N1 em queda, N2 em alta",3,3
+Neoenergia PE,18,18,14,21,30,"recebidas em alta, taxa em queda",N1 e N2 em alta,18,14
+CPFL-PIRATINING,19,13,23,28,25,"recebidas em alta, taxa em queda","N1 em alta, N2 em queda",27,23
+EQUATORIAL MA,20,27,17,19,18,recebidas e taxa em queda,"N1 em queda, N2 em alta",32,22
+COELBA,21,23,26,18,29,"recebidas em alta, taxa em queda",N1 e N2 em alta,25,24
+CPFL JAGUARI,22,11,27,30,26,"recebidas em alta, taxa em queda","N1 em alta, N2 em queda",26,26
+LIGHT SESA,23,28,24,17,24,"recebidas em alta, taxa em queda","N1 em alta, N2 em queda",16,8
+EPB,24,29,19,20,19,recebidas e taxa em alta,"N1 em alta, N2 em queda",5,19
+EMR,25,17,20,24,15,"recebidas em queda, taxa em alta","N1 em queda, N2 em alta",7,29
+RGE SUL,26,8,31,27,22,recebidas e taxa em alta,N1 e N2 em alta,17,1
+EQUATORIAL GO,27,20,4,23,11,"recebidas em queda, taxa em alta","N1 em queda, N2 em alta",28,5
+COPEL-DIS,28,31,28,12,28,"recebidas em alta, taxa em queda",N1 e N2 em alta,29,31
+EQUATORIAL PI,29,26,16,25,17,"recebidas em queda, taxa em alta",N1 e N2 em queda,13,18
+Neoenergia Brasília,30,14,32,26,31,"recebidas em alta, taxa em queda",N1 e N2 em alta,30,27
+CPFL-PAULISTA,31,21,29,29,23,recebidas e taxa em alta,"N1 em alta, N2 em queda",31,28
+COSERN,32,32,30,32,32,"recebidas em alta, taxa em queda",N1 e N2 em alta,9,7
