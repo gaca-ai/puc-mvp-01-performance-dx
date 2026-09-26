@@ -12,8 +12,8 @@ Entre as distribuidoras de **grande porte**, quem mais melhorou aos olhos do con
 
 | Se você quer ver | Abra |
 |---|---|
-| O problema, as perguntas e o recorte | [`notebooks/00_objetivo.ipynb`](notebooks/00_objetivo.ipynb) |
-| As respostas, com gráficos | [`complaints/04_analysis`](notebooks/complaints/04_analysis.ipynb) e [`continuity/03_analysis`](notebooks/continuity/03_analysis.ipynb) |
+| O problema, as perguntas e o recorte | [`notebooks/01_objetivo.ipynb`](notebooks/01_objetivo.ipynb) |
+| As respostas, com gráficos | [`03_complaints/04_analysis`](notebooks/03_complaints/04_analysis.ipynb) e [`04_continuity/03_analysis`](notebooks/04_continuity/03_analysis.ipynb) |
 | O modelo de dados e o catálogo | [`docs/modelo_dados.md`](docs/modelo_dados.md) e [`docs/catalogo_dados.md`](docs/catalogo_dados.md) |
 | A execução completa, com testes | Qualquer notebook em [`notebooks/`](notebooks/); todos estão salvos com as saídas |
 | O registro das decisões | [`md/sessions.md`](md/sessions.md) |
@@ -41,7 +41,7 @@ Continuidade, comparando 2022 e 2025: o consumidor ficou menos tempo sem energia
 O plano original tinha dez perguntas e seis rankings. Em 23/09 reduzi o escopo ao ranking de reclamações, com a continuidade como validação, porque:
  - o trabalho de analise de qualidade e saneamento foi maior do que o esperado
  - além da análise dos dados, foi necessário um estudo regulatório mais aprofundado para entender cada uma das métricas. Foram consultados módulos do Prodist (6 e 8), bem como a REN 1000/21 e sites da ANEEL.
- - o prazo não comportava seis métricas com a qualidade que eu gostaria de entregar. As dez perguntas continuam registradas no [`00_objetivo`](notebooks/00_objetivo.ipynb), com a situação de cada uma.
+ - o prazo não comportava seis métricas com a qualidade que eu gostaria de entregar. As dez perguntas continuam registradas no [`01_objetivo`](notebooks/01_objetivo.ipynb), com a situação de cada uma.
 
 
 **Dados brutos.** Oito conjuntos do portal de dados abertos da ANEEL, todos sob a licença **ODbL** (Open Database License, do Open Data Commons), que permite uso, adaptação e redistribuição, com atribuição da fonte e obras derivadas sob a mesma licença. A licença de cada recurso é lida da API a cada carga e gravada na tabela de controle. Os dois conjuntos que chegam à análise:
@@ -71,7 +71,7 @@ A coleta é automática, pela API CKAN do portal da ANEEL (o software de catálo
 | `pdd_investment` | 5.484 |
 | **Total** | **108.747.160** |
 
-Scripts: [`src/config.py`](src/config.py) (catálogo das fontes), [`base/01_setup`](notebooks/base/01_setup.ipynb) (catálogo, schemas e volume) e [`base/02_bronze_ingestion`](notebooks/base/02_bronze_ingestion.ipynb) (download, registro e tabela de controle `_ingestion_log`).
+Scripts: [`src/config.py`](src/config.py) (catálogo das fontes), [`02_base/01_setup`](notebooks/02_base/01_setup.ipynb) (catálogo, schemas e volume) e [`02_base/02_bronze_ingestion`](notebooks/02_base/02_bronze_ingestion.ipynb) (download, registro e tabela de controle `_ingestion_log`).
 
 ![Schemas e volume no Unity Catalog](docs/img/base/01_setup/02-carga_ui_01_catalog-explorer.png)
 
@@ -184,13 +184,13 @@ O pipeline tem um notebook por etapa, em três pastas: o que é comum (`base`) e
 
 | Camada | Notebook | Entrega |
 |---|---|---|
-| Bronze | `base/01_setup`, `base/02_bronze_ingestion` | Nove tabelas como publicadas, com linhagem |
-| Qualidade | `base/03_bronze_data_quality` | Verificação da Bronze antes de qualquer transformação |
-| Silver | `base/04_silver_dimensoes` | `dim_distribuidora` |
-| Silver | `complaints/01_silver_reference`, `02_silver_complaints` | `dim_tipologia`, `dim_tempo`, `fato_manifestacao` |
-| Silver | `continuity/01_silver_continuity` | `fato_continuidade_mensal`, `dim_conjunto` |
-| Gold | `complaints/03_gold_ranking`, `continuity/02_gold_continuity` | Indicadores por janela e rankings |
-| Análise | `complaints/04_analysis`, `continuity/03_analysis` | Respostas às perguntas |
+| Bronze | `02_base/01_setup`, `02_base/02_bronze_ingestion` | Nove tabelas como publicadas, com linhagem |
+| Qualidade | `02_base/03_bronze_data_quality` | Verificação da Bronze antes de qualquer transformação |
+| Silver | `02_base/04_silver_dimensoes` | `dim_distribuidora` |
+| Silver | `03_complaints/01_silver_reference`, `02_silver_complaints` | `dim_tipologia`, `dim_tempo`, `fato_manifestacao` |
+| Silver | `04_continuity/01_silver_continuity` | `fato_continuidade_mensal`, `dim_conjunto` |
+| Gold | `03_complaints/03_gold_ranking`, `04_continuity/02_gold_continuity` | Indicadores por janela e rankings |
+| Análise | `03_complaints/04_analysis`, `04_continuity/03_analysis` | Respostas às perguntas |
 
 Desenvolvo localmente, versiono no GitHub e o Databricks apenas puxa o repositório (Git folder), em sentido único. Os notebooks deste repositório foram exportados do Databricks com as saídas, e servem de evidência de que as tabelas foram persistidas e os testes passaram.
 
@@ -210,7 +210,7 @@ A verificação vem antes da transformação: o que é encontrado na Bronze vira
 | CELESC com série internamente inconsistente (procedentes acima das recebidas) | Excluída dos rankings de reclamações, com motivo e evidência registrados |
 | Ouvidoria com mais reclamações que o nível 1 em parte das tipologias | Comparação entre os níveis feita só no total |
 
-Os rankings foram recalculados sem a imputação: só duas distribuidoras mudam de posição por efeito direto, e nenhuma conclusão depende dela. Detalhes em [`base/03_bronze_data_quality`](notebooks/base/03_bronze_data_quality.ipynb) e [`complaints/02_silver_complaints`](notebooks/complaints/02_silver_complaints.ipynb).
+Os rankings foram recalculados sem a imputação: só duas distribuidoras mudam de posição por efeito direto, e nenhuma conclusão depende dela. Detalhes em [`02_base/03_bronze_data_quality`](notebooks/02_base/03_bronze_data_quality.ipynb) e [`03_complaints/02_silver_complaints`](notebooks/03_complaints/02_silver_complaints.ipynb).
 
 ---
 
@@ -248,11 +248,11 @@ O DEC-FI é a duração das interrupções por consumidor, contando dias crític
 
 ![Continuidade do Brasil](docs/img/continuity/03_analysis/figuras/fig01_como-ler.png)
 
-Entre 2022 e 2025, o DEC normativo do conjunto caiu 16,6%, mas o DEC-FI subiu 5,4%, com pico em 2024. A diferença está na definição: o indicador normativo exclui dias críticos e emergências, que o consumidor também sente. Em 24 das 33 distribuidoras, o pior ano foi 2023 ou 2024. Detalhes em [`continuity/03_analysis`](notebooks/continuity/03_analysis.ipynb).
+Entre 2022 e 2025, o DEC normativo do conjunto caiu 16,6%, mas o DEC-FI subiu 5,4%, com pico em 2024. A diferença está na definição: o indicador normativo exclui dias críticos e emergências, que o consumidor também sente. Em 24 das 33 distribuidoras, o pior ano foi 2023 ou 2024. Detalhes em [`04_continuity/03_analysis`](notebooks/04_continuity/03_analysis.ipynb).
 
 ### Discussão geral
 
-A qualidade percebida pelo consumidor melhorou no agregado, mas de forma desigual e com ressalvas. No comercial, o cliente reclama menos, e a Geração distribuída é a exceção que cresce. No técnico, a melhora da régua regulatória não aparece na régua do consumidor. Um ranking isolado engana: a leitura correta de cada distribuidora cruza procedentes, recebidas, ouvidoria e continuidade, e é o que a nota geral e o quadro da discussão em [`04_analysis`](notebooks/complaints/04_analysis.ipynb) fazem.
+A qualidade percebida pelo consumidor melhorou no agregado, mas de forma desigual e com ressalvas. No comercial, o cliente reclama menos, e a Geração distribuída é a exceção que cresce. No técnico, a melhora da régua regulatória não aparece na régua do consumidor. Um ranking isolado engana: a leitura correta de cada distribuidora cruza procedentes, recebidas, ouvidoria e continuidade, e é o que a nota geral e o quadro da discussão em [`04_analysis`](notebooks/03_complaints/04_analysis.ipynb) fazem.
 
 ---
 
