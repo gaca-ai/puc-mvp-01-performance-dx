@@ -226,7 +226,7 @@ O técnico (falta de energia, tensão e danos) responde por 90% das reclamaçõe
 
 ![Ranking do comercial estrito](docs/img/complaints/04_analysis/figuras/fig06_ranking-do-comercial-estrito.png)
 
-Barra azul, redução; laranja, aumento; a barra escura é o Brasil. As procedentes caíram de 6,20 para 5,67 por mil UCs (−8,5%). 20 distribuidoras reduziram, 16 mais do que o Brasil. A Geração distribuída subiu e anulou cerca de metade da queda: sem ela, a redução teria sido de 12,7%.
+Barra verde-azulada, redução; amarela, aumento; a barra escura é o Brasil. As procedentes caíram de 6,20 para 5,67 por mil UCs (−8,5%). 20 distribuidoras reduziram, 16 mais do que o Brasil. A Geração distribuída subiu e anulou cerca de metade da queda: sem ela, a redução teria sido de 12,7%.
 
 ### A procedência conta toda a história? (P3)
 
