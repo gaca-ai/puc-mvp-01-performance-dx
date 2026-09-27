@@ -16,6 +16,7 @@ Entre as distribuidoras de **grande porte**, quem mais melhorou aos olhos do con
 | As respostas, com gráficos | [`04_complaints/04_analysis`](notebooks/04_complaints/04_analysis.ipynb) e [`03_continuity/03_analysis`](notebooks/03_continuity/03_analysis.ipynb) |
 | O modelo de dados e o catálogo | [`docs/modelo_dados.md`](docs/modelo_dados.md) e [`docs/catalogo_dados.md`](docs/catalogo_dados.md) |
 | A execução completa, com testes | Qualquer notebook em [`notebooks/`](notebooks/); todos estão salvos com as saídas |
+| Os prints da plataforma (tabelas, descrições e linhagem) | [`docs/evidencias.md`](docs/evidencias.md) |
 | O registro das decisões | [`md/sessions.md`](md/sessions.md) |
 
 ---
@@ -96,6 +97,12 @@ Todas as tabelas esperadas foram persistidas.
 Scripts: [`src/config.py`](src/config.py) (catálogo das fontes), [`02_base/01_setup`](notebooks/02_base/01_setup.ipynb) (catálogo, schemas e volume) e [`02_base/02_bronze_ingestion`](notebooks/02_base/02_bronze_ingestion.ipynb) (download, registro e tabela de controle `_ingestion_log`).
 
 ![Schemas e volume no Unity Catalog](docs/img/base/01_setup/02-carga_ui_01_catalog-explorer.png)
+
+O schema `bronze` no Unity Catalog: as nove tabelas de dados, a tabela de controle `_ingestion_log` e o volume `landing`.
+
+![Tabelas da Bronze](docs/img/Bronze/bronze_tbls.png)
+
+Todos os prints da carga estão em [`docs/evidencias.md`](docs/evidencias.md#carga-dos-dados).
 
 ---
 
@@ -198,6 +205,16 @@ O modelo completo, com o grão de cada tabela, as escolhas de normalização e o
 
 Cada notebook grava a descrição de suas tabelas e colunas no Unity Catalog, no momento em que as cria. O notebook [`05_catalogo_dados`](notebooks/05_catalogo_dados.ipynb) lê essas descrições e gera [`docs/catalogo_dados.md`](docs/catalogo_dados.md), com tabela, coluna, tipo e descrição; um teste confere que nenhuma tabela ou coluna da Silver e da Gold ficou sem descrição.
 
+Como aparece no Unity Catalog: a `fato_manifestacao`, com a descrição da tabela e de cada coluna.
+
+![fato_manifestacao no Unity Catalog](docs/img/Silver/mvp_aneel.silver.fato_manifestacao.png)
+
+A linhagem do `ranking_reclamacoes`, registrada pelo próprio Unity Catalog: de onde a tabela vem e quem a consome.
+
+![Linhagem do ranking_reclamacoes](docs/img/Gold/mvp_aneel.gold.ranking_reclamacoes_lineage.png)
+
+Descrição e linhagem de todas as tabelas em [`docs/evidencias.md`](docs/evidencias.md#modelagem-e-catálogo-de-dados).
+
 ---
 
 ## Pipeline de Dados (Etapa 4.4)
@@ -215,6 +232,12 @@ O pipeline tem um notebook por etapa, em três pastas numeradas na ordem de exec
 | Análise | `03_continuity/03_analysis`, `04_complaints/04_analysis` | Respostas às perguntas |
 
 Desenvolvo localmente, versiono no GitHub e o Databricks apenas puxa o repositório (Git folder), em sentido único. Os notebooks deste repositório foram exportados do Databricks com as saídas, e servem de evidência de que as tabelas foram persistidas e os testes passaram.
+
+As tabelas persistidas na Silver (9) e na Gold (7), cada uma com sua descrição:
+
+![Tabelas da Silver](docs/img/Silver/silver_tbls.png)
+
+![Tabelas da Gold](docs/img/Gold/gold_tbls.png)
 
 ---
 
