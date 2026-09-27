@@ -231,7 +231,11 @@ O pipeline tem um notebook por etapa, em três pastas numeradas na ordem de exec
 | Gold | `03_continuity/02_gold_continuity`, `04_complaints/03_gold_ranking` | Indicadores por janela e rankings |
 | Análise | `03_continuity/03_analysis`, `04_complaints/04_analysis` | Respostas às perguntas |
 
-**Orquestração.** A ordem de execução está definida em um job do Databricks, versionado em [`jobs/pipeline_mvp_aneel.yml`](jobs/pipeline_mvp_aneel.yml). As dependências vêm das tabelas que cada notebook lê: depois da Bronze, continuidade e reclamações seguem em paralelo e se encontram no ranking de reclamações, que usa o número de consumidores e o DEC-FI da continuidade. O `01_objetivo` fica fora do job porque é só texto.
+---
+
+### Orquestração ###
+
+ A ordem de execução está definida em um job do Databricks, versionado em [`jobs/pipeline_mvp_aneel.yml`](jobs/pipeline_mvp_aneel.yml). As dependências vêm das tabelas que cada notebook lê: depois da Bronze, continuidade e reclamações seguem em paralelo e se encontram no ranking de reclamações, que usa o número de consumidores e o DEC-FI da continuidade. O `01_objetivo` fica fora do job porque é só texto.
 
 ```mermaid
 flowchart LR
@@ -253,9 +257,10 @@ O job no Databricks, em duas partes (as tarefas `c01` e `r02` aparecem nas duas)
 
 ![Job no Databricks, parte 2](docs/img/pipeline/mvp_aneel_pipeline_P2.png)
 
-Desenvolvo localmente, versiono no GitHub e o Databricks apenas puxa o repositório (Git folder), em sentido único. Os notebooks deste repositório foram exportados do Databricks com as saídas, e servem de evidência de que as tabelas foram persistidas e os testes passaram.
+---
+### Tabelas Silver e Gold persistidas:
 
-As tabelas persistidas na Silver (9) e na Gold (7), cada uma com sua descrição:
+Abaixo as tabelas persistidas na Silver (9) e na Gold (7), cada uma com sua descrição:
 
 ![Tabelas da Silver](docs/img/Silver/silver_tbls.png)
 
@@ -305,6 +310,8 @@ A média esconde trajetórias opostas: 11 distribuidoras reduziram a duração e
 
 Não nesta base. A regra pondera cada mês pelo número de consumidores; a soma simples dos doze meses, comum no mercado, fica no máximo 0,44 hora distante dela.
 
+---
+
 ### Reclamações
 
 Resumo dos resultados. O processo completo, com todos os gráficos e os testes de robustez, está em [`04_complaints/04_analysis`](notebooks/04_complaints/04_analysis.ipynb); cada título abaixo leva ao notebook, onde a pergunta aparece com o mesmo nome.
@@ -337,7 +344,7 @@ A correlação entre as duas frentes é de 0,39: fraca a moderada. 11 distribuid
 
 O DEC-FI é a duração das interrupções por consumidor, contando dias críticos e emergências (indicador próprio deste trabalho). A correlação com as reclamações de qualidade é de 0,48, com chance de acaso abaixo de 1%: quem reduziu o tempo sem energia tende a ter reduzido as reclamações. Com a frequência (FEC-FI), a relação é mais fraca (0,35).
 
-### Discussão geral
+### Conclusão geral
 
 A qualidade percebida pelo consumidor **medida pelos critérios propostos** melhorou no agregado, mas de forma desigual e com ressalvas. No comercial, o cliente reclama menos, e a Geração distribuída é a exceção que cresce. No técnico, a melhora da régua regulatória não aparece na régua do consumidor. Um ranking isolado engana: a leitura correta de cada distribuidora cruza procedentes, recebidas, ouvidoria e continuidade, e é o que a nota geral e o quadro da discussão em [`04_analysis`](notebooks/04_complaints/04_analysis.ipynb) fazem.
 
