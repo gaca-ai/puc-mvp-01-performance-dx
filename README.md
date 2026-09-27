@@ -4,7 +4,7 @@
 
 Pipeline na nuvem (Databricks Free Edition, arquitetura medalhão) sobre dados abertos da ANEEL (Agência Nacional de Energia Elétrica). 
 
-### A pergunta Central: 
+### A pergunta central: 
 
 Entre as distribuidoras de **grande porte**, quem mais melhorou aos olhos do consumidor nos ultimos anos?
 
@@ -13,7 +13,7 @@ Entre as distribuidoras de **grande porte**, quem mais melhorou aos olhos do con
 | Se você quer ver | Abra |
 |---|---|
 | O problema, as perguntas e o recorte | [`notebooks/01_objetivo.ipynb`](notebooks/01_objetivo.ipynb) |
-| As respostas, com gráficos | [`03_complaints/04_analysis`](notebooks/03_complaints/04_analysis.ipynb) e [`04_continuity/03_analysis`](notebooks/04_continuity/03_analysis.ipynb) |
+| As respostas, com gráficos | [`04_complaints/04_analysis`](notebooks/04_complaints/04_analysis.ipynb) e [`03_continuity/03_analysis`](notebooks/03_continuity/03_analysis.ipynb) |
 | O modelo de dados e o catálogo | [`docs/modelo_dados.md`](docs/modelo_dados.md) e [`docs/catalogo_dados.md`](docs/catalogo_dados.md) |
 | A execução completa, com testes | Qualquer notebook em [`notebooks/`](notebooks/); todos estão salvos com as saídas |
 | O registro das decisões | [`md/sessions.md`](md/sessions.md) |
@@ -40,7 +40,9 @@ Continuidade, comparando 2022 e 2025: o consumidor ficou menos tempo sem energia
 
 O plano original tinha dez perguntas e seis rankings. Em 23/09 reduzi o escopo ao ranking de reclamações, com a continuidade como validação, porque:
  - o trabalho de analise de qualidade e saneamento foi maior do que o esperado
- - além da análise dos dados, foi necessário um estudo regulatório mais aprofundado para entender cada uma das métricas. Foram consultados módulos do Prodist (6 e 8), bem como a REN 1000/21 e sites da ANEEL.
+
+ - para cada indicador avaliado, iniciar a análise dos dados da silver gerava novas perguntas que precisavam ser respondidas anteriormente à conclusão final. Para isso foi necessário um estudo regulatório mais aprofundado para entender cada uma das métricas. Foram consultados módulos do Prodist (6 e 8), bem como a REN 1000/21 e sites da ANEEL.
+ 
  - o prazo não comportava seis métricas com a qualidade que eu gostaria de entregar. As dez perguntas continuam registradas no [`01_objetivo`](notebooks/01_objetivo.ipynb), com a situação de cada uma.
 
 
@@ -70,6 +72,26 @@ A coleta é automática, pela API CKAN do portal da ANEEL (o software de catálo
 | `indger_commercial` | 267.550 |
 | `pdd_investment` | 5.484 |
 | **Total** | **108.747.160** |
+
+**Evidência da persistência.** Saída da validação ao fim do [`02_base/02_bronze_ingestion`](notebooks/02_base/02_bronze_ingestion.ipynb), que lê de volta cada tabela gravada no Unity Catalog e confere com o esperado:
+
+```
+Tabelas em mvp_aneel.bronze: 10
+
+commercial_quality                    1,493,698 linhas    9 colunas
+complaints                           29,263,282 linhas   24 colunas
+continuity_indicators                 5,108,332 linhas   11 colunas
+emergency_occurrences_v1             36,390,229 linhas   17 colunas
+emergency_occurrences_v2              6,789,484 linhas   25 colunas
+indger_commercial                       267,550 linhas   65 colunas
+indger_commercial_services           23,922,861 linhas   24 colunas
+pdd_investment                            5,484 linhas   13 colunas
+voltage_conformity                    5,506,240 linhas   10 colunas
+
+TOTAL                               108,747,160 linhas
+
+Todas as tabelas esperadas foram persistidas.
+```
 
 Scripts: [`src/config.py`](src/config.py) (catálogo das fontes), [`02_base/01_setup`](notebooks/02_base/01_setup.ipynb) (catálogo, schemas e volume) e [`02_base/02_bronze_ingestion`](notebooks/02_base/02_bronze_ingestion.ipynb) (download, registro e tabela de controle `_ingestion_log`).
 
@@ -180,17 +202,17 @@ Cada notebook grava a descrição de suas tabelas e colunas no Unity Catalog, no
 
 ## Pipeline de Dados (Etapa 4.4)
 
-O pipeline tem um notebook por etapa, em três pastas: o que é comum (`base`) e o que é de cada fonte (`complaints` e `continuity`). Cada notebook abre com o que faz e por quê, e termina com testes e com a própria autoavaliação.
+O pipeline tem um notebook por etapa, em três pastas numeradas na ordem de execução: o que é comum (`02_base`) e o que é de cada fonte (`03_continuity` e `04_complaints`). A continuidade roda antes das reclamações porque fornece o denominador das reclamações e o DEC-FI e o FEC-FI usados na validação. Cada notebook abre com o que faz e por quê, e termina com testes e com a própria autoavaliação.
 
 | Camada | Notebook | Entrega |
 |---|---|---|
 | Bronze | `02_base/01_setup`, `02_base/02_bronze_ingestion` | Nove tabelas como publicadas, com linhagem |
 | Qualidade | `02_base/03_bronze_data_quality` | Verificação da Bronze antes de qualquer transformação |
 | Silver | `02_base/04_silver_dimensoes` | `dim_distribuidora` |
-| Silver | `03_complaints/01_silver_reference`, `02_silver_complaints` | `dim_tipologia`, `dim_tempo`, `fato_manifestacao` |
-| Silver | `04_continuity/01_silver_continuity` | `fato_continuidade_mensal`, `dim_conjunto` |
-| Gold | `03_complaints/03_gold_ranking`, `04_continuity/02_gold_continuity` | Indicadores por janela e rankings |
-| Análise | `03_complaints/04_analysis`, `04_continuity/03_analysis` | Respostas às perguntas |
+| Silver | `03_continuity/01_silver_continuity` | `fato_continuidade_mensal`, `dim_conjunto` |
+| Silver | `04_complaints/01_silver_reference`, `02_silver_complaints` | `dim_tipologia`, `dim_tempo`, `fato_manifestacao` |
+| Gold | `03_continuity/02_gold_continuity`, `04_complaints/03_gold_ranking` | Indicadores por janela e rankings |
+| Análise | `03_continuity/03_analysis`, `04_complaints/04_analysis` | Respostas às perguntas |
 
 Desenvolvo localmente, versiono no GitHub e o Databricks apenas puxa o repositório (Git folder), em sentido único. Os notebooks deste repositório foram exportados do Databricks com as saídas, e servem de evidência de que as tabelas foram persistidas e os testes passaram.
 
@@ -210,7 +232,7 @@ A verificação vem antes da transformação: o que é encontrado na Bronze vira
 | CELESC com série internamente inconsistente (procedentes acima das recebidas) | Excluída dos rankings de reclamações, com motivo e evidência registrados |
 | Ouvidoria com mais reclamações que o nível 1 em parte das tipologias | Comparação entre os níveis feita só no total |
 
-Os rankings foram recalculados sem a imputação: só duas distribuidoras mudam de posição por efeito direto, e nenhuma conclusão depende dela. Detalhes em [`02_base/03_bronze_data_quality`](notebooks/02_base/03_bronze_data_quality.ipynb) e [`03_complaints/02_silver_complaints`](notebooks/03_complaints/02_silver_complaints.ipynb).
+Os rankings foram recalculados sem a imputação: só duas distribuidoras mudam de posição por efeito direto, e nenhuma conclusão depende dela. Detalhes em [`02_base/03_bronze_data_quality`](notebooks/02_base/03_bronze_data_quality.ipynb) e [`04_complaints/02_silver_complaints`](notebooks/04_complaints/02_silver_complaints.ipynb).
 
 ---
 
@@ -248,11 +270,11 @@ O DEC-FI é a duração das interrupções por consumidor, contando dias crític
 
 ![Continuidade do Brasil](docs/img/continuity/03_analysis/figuras/fig01_como-ler.png)
 
-Entre 2022 e 2025, o DEC normativo do conjunto caiu 16,6%, mas o DEC-FI subiu 5,4%, com pico em 2024. A diferença está na definição: o indicador normativo exclui dias críticos e emergências, que o consumidor também sente. Em 24 das 33 distribuidoras, o pior ano foi 2023 ou 2024. Detalhes em [`04_continuity/03_analysis`](notebooks/04_continuity/03_analysis.ipynb).
+Entre 2022 e 2025, o DEC normativo do conjunto caiu 16,6%, mas o DEC-FI subiu 5,4%, com pico em 2024. A diferença está na definição: o indicador normativo exclui dias críticos e emergências, que o consumidor também sente. Em 24 das 33 distribuidoras, o pior ano foi 2023 ou 2024. Detalhes em [`03_continuity/03_analysis`](notebooks/03_continuity/03_analysis.ipynb).
 
 ### Discussão geral
 
-A qualidade percebida pelo consumidor melhorou no agregado, mas de forma desigual e com ressalvas. No comercial, o cliente reclama menos, e a Geração distribuída é a exceção que cresce. No técnico, a melhora da régua regulatória não aparece na régua do consumidor. Um ranking isolado engana: a leitura correta de cada distribuidora cruza procedentes, recebidas, ouvidoria e continuidade, e é o que a nota geral e o quadro da discussão em [`04_analysis`](notebooks/03_complaints/04_analysis.ipynb) fazem.
+A qualidade percebida pelo consumidor melhorou no agregado, mas de forma desigual e com ressalvas. No comercial, o cliente reclama menos, e a Geração distribuída é a exceção que cresce. No técnico, a melhora da régua regulatória não aparece na régua do consumidor. Um ranking isolado engana: a leitura correta de cada distribuidora cruza procedentes, recebidas, ouvidoria e continuidade, e é o que a nota geral e o quadro da discussão em [`04_analysis`](notebooks/04_complaints/04_analysis.ipynb) fazem.
 
 ---
 
