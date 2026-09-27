@@ -125,6 +125,12 @@ Para cada tabela, dois prints: a descrição com as colunas e a linhagem (de qua
 
 ## Pipeline de Dados
 
+**Job do Databricks com o DAG do pipeline**, definido em [`jobs/pipeline_mvp_aneel.yml`](../jobs/pipeline_mvp_aneel.yml). Prefixos: `b`, base; `c`, continuidade; `r`, reclamações; `z`, catálogo.
+
+![Job, parte 1](img/pipeline/mvp_aneel_pipeline_P1.png)
+
+![Job, parte 2](img/pipeline/mvp_aneel_pipeline_P2.png)
+
 **Silver: 9 tabelas**, todas com descrição.
 
 ![Tabelas da Silver](img/Silver/silver_tbls.png)

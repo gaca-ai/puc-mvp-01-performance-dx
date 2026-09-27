@@ -231,6 +231,28 @@ O pipeline tem um notebook por etapa, em três pastas numeradas na ordem de exec
 | Gold | `03_continuity/02_gold_continuity`, `04_complaints/03_gold_ranking` | Indicadores por janela e rankings |
 | Análise | `03_continuity/03_analysis`, `04_complaints/04_analysis` | Respostas às perguntas |
 
+**Orquestração.** Os notebooks rodam como um job do Databricks, definido em [`jobs/pipeline_mvp_aneel.yml`](jobs/pipeline_mvp_aneel.yml). As dependências vêm das tabelas que cada notebook lê: depois da Bronze, continuidade e reclamações seguem em paralelo e se encontram no ranking de reclamações, que usa o número de consumidores e o DEC-FI da continuidade. O `01_objetivo` fica fora do job porque é só texto.
+
+```mermaid
+flowchart LR
+    b01[01_setup] --> b02[02_bronze_ingestion] --> b03[03_bronze_data_quality]
+    b03 --> b04[04_silver_dimensoes]
+    b03 --> r01[reclamações 01_silver_reference]
+    b04 --> c01[continuidade 01_silver_continuity] --> c02[continuidade 02_gold_continuity] --> c03[continuidade 03_analysis]
+    b04 --> r02[reclamações 02_silver_complaints]
+    r01 --> r02
+    c02 --> r03[reclamações 03_gold_ranking]
+    r02 --> r03 --> r04[reclamações 04_analysis]
+    c03 --> z05[05_catalogo_dados]
+    r04 --> z05
+```
+
+O job no Databricks, em duas partes (as tarefas `c01` e `r02` aparecem nas duas). Prefixos: `b`, base; `c`, continuidade; `r`, reclamações; `z`, catálogo, que fecha o pipeline.
+
+![Job no Databricks, parte 1](docs/img/pipeline/mvp_aneel_pipeline_P1.png)
+
+![Job no Databricks, parte 2](docs/img/pipeline/mvp_aneel_pipeline_P2.png)
+
 Desenvolvo localmente, versiono no GitHub e o Databricks apenas puxa o repositório (Git folder), em sentido único. Os notebooks deste repositório foram exportados do Databricks com as saídas, e servem de evidência de que as tabelas foram persistidas e os testes passaram.
 
 As tabelas persistidas na Silver (9) e na Gold (7), cada uma com sua descrição:
