@@ -362,7 +362,11 @@ A nota vai de 0 a 10 e resume três rankings de reclamações: procedentes comer
 
 ## Autoavaliação
 
-**Objetivo.** Atingi o objetivo proposto pela especificação técnica, porem em escopo menor que o planejado. O pipeline responde de ponta a ponta à pergunta sobre reclamações e usa a continuidade como validação independente. As outras quatro dimensões (serviços comerciais, tensão, investimento e tempo de atendimento) chegaram à Bronze e pararam ali: em 23/09 troquei amplitude por qualidade, porque análises de reclamaçoes foram bastantes ricas e métricas adicionais no prazo sairiam rasas.
+**Cada notebook tem a sua autoavaliação, com o que aquela etapa entregou e o que ficou em aberto.**
+
+**Objetivo.** 
+
+Atingi o objetivo proposto pela especificação técnica, porem em escopo menor que o planejado. O pipeline responde de ponta a ponta à pergunta sobre reclamações e usa a continuidade como validação independente. As outras quatro dimensões (serviços comerciais, tensão, investimento e tempo de atendimento) chegaram à Bronze e pararam ali: em 23/09 troquei amplitude por qualidade, porque análises de reclamaçoes foram bastantes ricas e métricas adicionais no prazo sairiam rasas.
 
 **Dificuldades.**
 
@@ -372,15 +376,15 @@ A nota vai de 0 a 10 e resume três rankings de reclamações: procedentes comer
 
 - **Comunicação dos resultados.** sintetizar achados resultantes de pesquisas em multiplas fontes e organizar tanta informação de maneira a manter o interesse e não tornar a correção do trabalho exaustiva foi um desafio adicional.
 
-**O que eu faria diferente.** Dimensionaria o escopo pelo prazo antes de detalhar as métricas, e testaria a consistência interna de cada série antes de tratá-la.
+**O que eu faria diferente.** 
+
+Dimensionaria o escopo pelo prazo antes de detalhar as métricas, e testaria a consistência interna de cada série antes de tratá-la.
 
 **Trabalhos futuros.**
 
 - As quatro métricas que ficaram na Bronze, reaproveitando o desenho do pipeline.
 - Inferência estatística sobre a série mensal (gráfico de controle, teste de tendência e intervalo para cada posição), em vez da comparação entre duas janelas.
 - O efeito dos eventos climáticos na continuidade, separando os meses de evento e avaliando o impacto nas conclusões.
-
-Cada notebook tem a sua autoavaliação, com o que aquela etapa entregou e o que ficou em aberto.
 
 ---
 
