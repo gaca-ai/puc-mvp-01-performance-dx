@@ -231,7 +231,7 @@ O pipeline tem um notebook por etapa, em três pastas numeradas na ordem de exec
 | Gold | `03_continuity/02_gold_continuity`, `04_complaints/03_gold_ranking` | Indicadores por janela e rankings |
 | Análise | `03_continuity/03_analysis`, `04_complaints/04_analysis` | Respostas às perguntas |
 
-**Orquestração.** Os notebooks rodam como um job do Databricks, definido em [`jobs/pipeline_mvp_aneel.yml`](jobs/pipeline_mvp_aneel.yml). As dependências vêm das tabelas que cada notebook lê: depois da Bronze, continuidade e reclamações seguem em paralelo e se encontram no ranking de reclamações, que usa o número de consumidores e o DEC-FI da continuidade. O `01_objetivo` fica fora do job porque é só texto.
+**Orquestração.** A ordem de execução está definida em um job do Databricks, versionado em [`jobs/pipeline_mvp_aneel.yml`](jobs/pipeline_mvp_aneel.yml). As dependências vêm das tabelas que cada notebook lê: depois da Bronze, continuidade e reclamações seguem em paralelo e se encontram no ranking de reclamações, que usa o número de consumidores e o DEC-FI da continuidade. O `01_objetivo` fica fora do job porque é só texto.
 
 ```mermaid
 flowchart LR
