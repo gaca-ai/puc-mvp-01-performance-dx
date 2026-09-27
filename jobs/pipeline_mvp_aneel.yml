@@ -1,0 +1,102 @@
+# Orchestration of the MVP pipeline as a Databricks job (Lakeflow Jobs).
+# Dependencies derived from the tables each notebook reads.
+# Prefixes: b = base, c = continuity, r = complaints (reclamacoes), z = closing.
+# Usage: create an empty job, open Switch to code version (YAML), paste this file.
+resources:
+  jobs:
+    mvp_aneel_pipeline:
+      name: mvp_aneel_pipeline
+      max_concurrent_runs: 1
+      tasks:
+        - task_key: b01_setup
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/02_base/01_setup
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: b02_bronze_ingestion
+          depends_on:
+            - task_key: b01_setup
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/02_base/02_bronze_ingestion
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: b03_bronze_data_quality
+          depends_on:
+            - task_key: b02_bronze_ingestion
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/02_base/03_bronze_data_quality
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: b04_silver_dimensoes
+          depends_on:
+            - task_key: b03_bronze_data_quality
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/02_base/04_silver_dimensoes
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: c01_silver_continuity
+          depends_on:
+            - task_key: b04_silver_dimensoes
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/03_continuity/01_silver_continuity
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: c02_gold_continuity
+          depends_on:
+            - task_key: c01_silver_continuity
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/03_continuity/02_gold_continuity
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: c03_analysis
+          depends_on:
+            - task_key: c02_gold_continuity
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/03_continuity/03_analysis
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: r01_silver_reference
+          depends_on:
+            - task_key: b03_bronze_data_quality
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/04_complaints/01_silver_reference
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: r02_silver_complaints
+          depends_on:
+            - task_key: b04_silver_dimensoes
+            - task_key: r01_silver_reference
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/04_complaints/02_silver_complaints
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: r03_gold_ranking
+          depends_on:
+            - task_key: c02_gold_continuity
+            - task_key: r02_silver_complaints
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/04_complaints/03_gold_ranking
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: r04_analysis
+          depends_on:
+            - task_key: r03_gold_ranking
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/04_complaints/04_analysis
+            source: WORKSPACE
+          environment_key: Default
+        - task_key: z05_catalogo_dados
+          depends_on:
+            - task_key: c03_analysis
+            - task_key: r04_analysis
+          notebook_task:
+            notebook_path: /Workspace/Users/gaca.ai.consult@gmail.com/puc-mvp-01-performance-dx/notebooks/05_catalogo_dados
+            source: WORKSPACE
+          environment_key: Default
+      queue:
+        enabled: true
+      environments:
+        - environment_key: Default
+          spec:
+            environment_version: "5"
+      performance_target: PERFORMANCE_OPTIMIZED

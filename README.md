@@ -13,7 +13,7 @@ Entre as distribuidoras de **grande porte**, quem mais melhorou aos olhos do con
 | Se você quer ver | Abra |
 |---|---|
 | O problema, as perguntas e o recorte | [`notebooks/01_objetivo.ipynb`](notebooks/01_objetivo.ipynb) |
-| As respostas, com gráficos | [`04_complaints/04_analysis`](notebooks/04_complaints/04_analysis.ipynb) e [`03_continuity/03_analysis`](notebooks/03_continuity/03_analysis.ipynb) |
+| As respostas, com gráficos | [`03_continuity/03_analysis`](notebooks/03_continuity/03_analysis.ipynb) e [`04_complaints/04_analysis`](notebooks/04_complaints/04_analysis.ipynb) |
 | O modelo de dados e o catálogo | [`docs/modelo_dados.md`](docs/modelo_dados.md) e [`docs/catalogo_dados.md`](docs/catalogo_dados.md) |
 | A execução completa, com testes | Qualquer notebook em [`notebooks/`](notebooks/); todos estão salvos com as saídas |
 | Os prints da plataforma (tabelas, descrições e linhagem) | [`docs/evidencias.md`](docs/evidencias.md) |
@@ -261,70 +261,67 @@ Os rankings foram recalculados sem a imputação: só duas distribuidoras mudam 
 
 ## Análise de Dados (Etapa 4.5)
 
-### Do que o cliente reclama (P1)
+### Continuidade
+
+Resumo dos resultados. O processo completo, com todos os gráficos, está em [`03_continuity/03_analysis`](notebooks/03_continuity/03_analysis.ipynb); cada título abaixo leva ao notebook, onde a pergunta aparece com o mesmo nome.
+
+#### [O consumidor ficou menos tempo sem energia?](notebooks/03_continuity/03_analysis.ipynb)
+
+![Continuidade do Brasil](docs/img/continuity/03_analysis/figuras/fig01_como-ler.png)
+
+Pela régua regulatória, sim: o DEC e o FEC normativos do conjunto caíram 16,6% e 14,6% entre 2022 e 2025. Pela régua deste trabalho, não: o DEC-FI (duração das interrupções por consumidor, contando dias críticos e emergências) subiu 5,4%, com pico em 2024, e o FEC-FI (frequência, no mesmo recorte) ficou estável. A diferença está na definição: o indicador normativo exclui dias críticos e emergências, que o consumidor também sente.
+
+#### [Quem melhorou, partindo de onde?](notebooks/03_continuity/03_analysis.ipynb)
+
+Quem partia de patamar alto reduziu mais: as três maiores reduções em horas são do grupo Equatorial (AL, GO e MA), todas acima de 28 horas em 2022. Os anos do meio foram os piores: em 24 das 33 distribuidoras, o pior ano foi 2023 ou 2024. O ranking entre as pontas deve ser lido junto com a trajetória.
+
+#### [Menos interrupções ou interrupções mais curtas?](notebooks/03_continuity/03_analysis.ipynb)
+
+A média esconde trajetórias opostas: 11 distribuidoras reduziram a duração e a frequência das interrupções; outras 11 pioraram nas duas.
+
+#### [A regra de agregação do PRODIST muda o resultado?](notebooks/03_continuity/03_analysis.ipynb)
+
+Não nesta base. A regra pondera cada mês pelo número de consumidores; a soma simples dos doze meses, comum no mercado, fica no máximo 0,44 hora distante dela.
+
+### Reclamações
+
+Resumo dos resultados. O processo completo, com todos os gráficos e os testes de robustez, está em [`04_complaints/04_analysis`](notebooks/04_complaints/04_analysis.ipynb); cada título abaixo leva ao notebook, onde a pergunta aparece com o mesmo nome.
+
+#### [Do que o cliente reclama (P1)](notebooks/04_complaints/04_analysis.ipynb)
 
 ![Técnico e comercial](docs/img/complaints/04_analysis/figuras/fig01_tecnico-e-comercial.png)
 
 O técnico (falta de energia, tensão e danos) responde por 90% das reclamações procedentes. No comercial, o Faturamento é metade do volume, e a Geração distribuída é o grupo que mais cresce: já é o maior tema comercial em cinco distribuidoras.
 
-### Quem reduziu as reclamações comerciais (P2)
+#### [Quem reduziu as reclamações comerciais (P2)](notebooks/04_complaints/04_analysis.ipynb)
 
 ![Ranking do comercial estrito](docs/img/complaints/04_analysis/figuras/fig06_ranking-do-comercial-estrito.png)
 
 Barra verde-azulada, redução; amarela, aumento; a barra escura é o Brasil. As procedentes caíram de 6,20 para 5,67 por mil UCs (−8,5%). 20 distribuidoras reduziram, 16 mais do que o Brasil. A Geração distribuída subiu e anulou cerca de metade da queda: sem ela, a redução teria sido de 12,7%.
 
-### A procedência conta toda a história? (P3)
+#### [A procedência conta toda a história? (P3)](notebooks/04_complaints/04_analysis.ipynb)
 
 ![Recebidas e taxa de procedência](docs/img/complaints/04_analysis/figuras/fig14_matriz-recebidas-taxa-de-procedencia.png)
 
 A procedência é classificada pela própria distribuidora. 11 distribuidoras recebem mais reclamações e reconhecem uma parcela menor delas, entre elas as cinco do grupo Neoenergia. Na ouvidoria, a taxa de escalada subiu de 15,4 para 18,8 reclamações para cada 100 no nível 1. O ranking de procedentes, sozinho, superestima a melhora de parte das empresas.
 
-### Técnico e comercial andam juntos? (P4)
+#### [Técnico e comercial andam juntos? (P4)](notebooks/04_complaints/04_analysis.ipynb)
 
 A correlação entre as duas frentes é de 0,39: fraca a moderada. 11 distribuidoras melhoram nas duas e 7 pioram nas duas; as outras 14 andam em direções opostas. A melhora técnica não garante a comercial.
 
-### O técnico confirma a continuidade? (P5)
+#### [O técnico confirma a continuidade? (P5)](notebooks/04_complaints/04_analysis.ipynb)
 
 ![Reclamações de qualidade e DEC-FI](docs/img/complaints/04_analysis/figuras/fig18_dec-fi.png)
 
 O DEC-FI é a duração das interrupções por consumidor, contando dias críticos e emergências (indicador próprio deste trabalho). A correlação com as reclamações de qualidade é de 0,48, com chance de acaso abaixo de 1%: quem reduziu o tempo sem energia tende a ter reduzido as reclamações. Com a frequência (FEC-FI), a relação é mais fraca (0,35).
 
-### A continuidade melhorou?
-
-![Continuidade do Brasil](docs/img/continuity/03_analysis/figuras/fig01_como-ler.png)
-
-Entre 2022 e 2025, o DEC normativo do conjunto caiu 16,6%, mas o DEC-FI subiu 5,4%, com pico em 2024. A diferença está na definição: o indicador normativo exclui dias críticos e emergências, que o consumidor também sente. Em 24 das 33 distribuidoras, o pior ano foi 2023 ou 2024. Detalhes em [`03_continuity/03_analysis`](notebooks/03_continuity/03_analysis.ipynb).
-
 ### Discussão geral
 
-A qualidade percebida pelo consumidor melhorou no agregado, mas de forma desigual e com ressalvas. No comercial, o cliente reclama menos, e a Geração distribuída é a exceção que cresce. No técnico, a melhora da régua regulatória não aparece na régua do consumidor. Um ranking isolado engana: a leitura correta de cada distribuidora cruza procedentes, recebidas, ouvidoria e continuidade, e é o que a nota geral e o quadro da discussão em [`04_analysis`](notebooks/04_complaints/04_analysis.ipynb) fazem.
+A qualidade percebida pelo consumidor **medida pelos critérios propostos** melhorou no agregado, mas de forma desigual e com ressalvas. No comercial, o cliente reclama menos, e a Geração distribuída é a exceção que cresce. No técnico, a melhora da régua regulatória não aparece na régua do consumidor. Um ranking isolado engana: a leitura correta de cada distribuidora cruza procedentes, recebidas, ouvidoria e continuidade, e é o que a nota geral e o quadro da discussão em [`04_analysis`](notebooks/04_complaints/04_analysis.ipynb) fazem.
 
 ---
 
-## Autoavaliação
-
-**Objetivo.** Atingi o objetivo em escopo menor que o planejado. O pipeline responde de ponta a ponta à pergunta sobre reclamações e usa a continuidade como validação independente. As outras quatro dimensões (serviços comerciais, tensão, investimento e tempo de atendimento) chegaram à Bronze e pararam ali: em 23/09 troquei amplitude por qualidade, porque seis métricas no prazo sairiam rasas.
-
-**Dificuldades.**
-
-- **Qualidade do dado público.** O consolidado do DEC e do FEC publicado pela ANEEL diverge da soma das parcelas; a série da CELESC é inconsistente; a ouvidoria supera o nível 1 em parte das tipologias. Cada achado exigiu decidir entre corrigir, excluir ou apenas sinalizar.
-- **Restrições do ambiente.** A Free Edition não lê Parquet com precisão de nanossegundos, e a cota diária de processamento limitou o número de ciclos completos.
-- **Comunicação dos resultados.** A primeira versão da análise era correta e ilegível para um gestor. Refiz gráficos e textos para quem tem pouco tempo: texto curto ao lado de cada gráfico e o Brasil como referência.
-
-**O que eu faria diferente.** Dimensionaria o escopo pelo prazo antes de detalhar as métricas, e testaria a consistência interna de cada série antes de tratá-la.
-
-**Trabalhos futuros.**
-
-- As quatro métricas que ficaram na Bronze, reaproveitando o desenho do pipeline.
-- Inferência estatística sobre a série mensal (gráfico de controle, teste de tendência e intervalo para cada posição), em vez da comparação entre duas janelas.
-- O efeito dos eventos climáticos na continuidade, separando os meses de evento.
-- O número de unidades com geração distribuída no denominador do seu indicador, para separar adesão de qualidade.
-
-Cada notebook tem a sua autoavaliação, com o que aquela etapa entregou e o que ficou em aberto.
-
----
-
-## Resposta em uma tela
+## Resposta em uma tela (Avaliação Final)
 
 ![Nota geral de evolução](docs/img/complaints/04_analysis/figuras/fig20_nota-geral-de-evolucao.png)
 
@@ -333,3 +330,29 @@ A nota vai de 0 a 10 e resume três rankings de reclamações: procedentes comer
 - **O cliente reclama menos.** Entre as janelas de 12 meses encerradas em dez/2024 e jun/2026, as reclamações comerciais procedentes caíram 8,5% por mil unidades consumidoras (UCs) no conjunto das 32 distribuidoras, e as recebidas, 9,1%.
 - **A média esconde trajetórias opostas.** ERO, Âmbar Amazonas e EMT melhoram em tudo; COSERN, CPFL-PAULISTA e Neoenergia Brasília pioram. Das 20 distribuidoras que reduziram as procedentes, 15 têm ressalva: mais reclamações recebidas ou mais clientes recorrendo à ouvidoria.
 - **A continuidade confirma, em parte.** Quem reduziu a duração das interrupções tende a ter reduzido as reclamações de falta de energia (correlação de 0,48). Pela régua regulatória, a continuidade do conjunto melhorou entre 2022 e 2025; pela régua do consumidor, que inclui dias críticos e emergências, não.
+
+## Autoavaliação
+
+**Objetivo.** Atingi o objetivo proposto pela especificação técnica, porem em escopo menor que o planejado. O pipeline responde de ponta a ponta à pergunta sobre reclamações e usa a continuidade como validação independente. As outras quatro dimensões (serviços comerciais, tensão, investimento e tempo de atendimento) chegaram à Bronze e pararam ali: em 23/09 troquei amplitude por qualidade, porque análises de reclamaçoes foram bastantes ricas e métricas adicionais no prazo sairiam rasas.
+
+**Dificuldades.**
+
+- **Qualidade do dado público.** O consolidado do DEC e do FEC publicado pela ANEEL diverge da soma das parcelas; a série da CELESC é inconsistente; a ouvidoria supera o nível 1 em parte das tipologias. Cada achado exigiu decidir entre corrigir, excluir ou apenas sinalizar.
+
+- **Restrições do ambiente.** A Free Edition não lê Parquet com precisão de nanossegundos, e a cota diária de processamento limitou o número de ciclos completos.
+
+- **Comunicação dos resultados.** sintetizar achados resultantes de pesquisas em multiplas fontes e organizar tanta informação de maneira a manter o interesse e não tornar a correção do trabalho exaustiva foi um desafio adicional.
+
+**O que eu faria diferente.** Dimensionaria o escopo pelo prazo antes de detalhar as métricas, e testaria a consistência interna de cada série antes de tratá-la.
+
+**Trabalhos futuros.**
+
+- As quatro métricas que ficaram na Bronze, reaproveitando o desenho do pipeline.
+- Inferência estatística sobre a série mensal (gráfico de controle, teste de tendência e intervalo para cada posição), em vez da comparação entre duas janelas.
+- O efeito dos eventos climáticos na continuidade, separando os meses de evento e avaliando o impacto nas conclusões.
+
+Cada notebook tem a sua autoavaliação, com o que aquela etapa entregou e o que ficou em aberto.
+
+---
+
+
