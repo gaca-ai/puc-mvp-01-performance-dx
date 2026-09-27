@@ -6,16 +6,16 @@ Gerado do `information_schema` do catálogo `mvp_aneel` no Unity Catalog pelo no
 
 | Camada | Tabela | Linhas | Descrição |
 |---|---|---:|---|
-| Bronze | `_ingestion_log` | 14 |  |
-| Bronze | `commercial_quality` | 1.493.698 |  |
-| Bronze | `complaints` | 29.263.282 |  |
-| Bronze | `continuity_indicators` | 5.108.332 |  |
-| Bronze | `emergency_occurrences_v1` | 36.390.229 |  |
-| Bronze | `emergency_occurrences_v2` | 6.789.484 |  |
-| Bronze | `indger_commercial` | 267.550 |  |
-| Bronze | `indger_commercial_services` | 23.922.861 |  |
-| Bronze | `pdd_investment` | 5.484 |  |
-| Bronze | `voltage_conformity` | 5.506.240 |  |
+| Bronze | `_ingestion_log` | 14 | Tabela de controle da ingestão: uma linha por recurso baixado, com conjunto, licença, URL de origem, tamanho, data de atualização e tabela de destino. Fonte: Tabela própria deste trabalho. |
+| Bronze | `commercial_quality` | 1.493.698 | Este conjunto de dados expressa a lista de Agentes regulados pela ANEEL com dados do CNPJ, sigla do indicador por ano e periodicidade dos dados de valores enviados para o índice. Fonte: dm-qualidade-do-atendimento-comercial.pdf, versão 1.0 (17/8/2022). |
+| Bronze | `complaints` | 29.263.282 | Relação das manifestações dos consumidores em relação à distribuidora, por município, canal de atendimento e tipologia, no 1º nível (SAC) e no 2º nível (Ouvidoria) de atendimento. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| Bronze | `continuity_indicators` | 5.108.332 | O conjunto de dados apresenta valores apurados dos indicadores coletivos de continuidade DEC (Duração Equivalente de Interrupção por Unidade Consumidora), expresso em horas e centésimos de horas, e FEC (Frequência Equivalente de Interrupção por Unidade Consumidora), expresso em número de interrupções e centésimos do número de interrupções. Também são fornecidas as parcelas desagregadas dos indicadores. Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| Bronze | `emergency_occurrences_v1` | 36.390.229 | Registro de ocorrências emergenciais contendo informações relativas à data/hora de abertura e encerramento, ao conjunto elétrico afetado, aos tempos de preparação, deslocamento e execução do atendimento, bem como aos dados relacionados ao fato gerador e demais informações correlatas. Arquivos de 2023 a 2025. Fonte: dm-ocorrencias-emergenciais-nas-redes-de-distribuicao.pdf, versão 1.1 (28/07/2026). |
+| Bronze | `emergency_occurrences_v2` | 6.789.484 | Registro de ocorrências emergenciais contendo informações relativas à data/hora de abertura e encerramento, ao conjunto elétrico afetado, aos tempos de preparação, deslocamento e execução do atendimento, bem como aos dados relacionados ao fato gerador e demais informações correlatas. Arquivo de 2026, publicado com leiaute diferente dos anos anteriores. Fonte: dm-ocorrencias-emergenciais-nas-redes-de-distribuicao.pdf, versão 1.1 (28/07/2026). |
+| Bronze | `indger_commercial` | 267.550 | Relação, por mês, dos dados relacionados a aspectos comerciais (faturamento, danos elétricos, atendimento), informados pelas distribuidoras na base de dados INDGER2, segregados por município. Fonte: dm-indger-dados-comerciais.pdf, versão 1.0 (13/12/2023). |
+| Bronze | `indger_commercial_services` | 23.922.861 | Relação, por mês, dos dados relacionados a aspectos dos serviços comerciais (quantidades, prazos, estoques, compensações), informados pelas distribuidoras na base de dados INDGER2, segregados por município. Fonte: dm-indger-dados-de-servicos-comerciais.pdf, versão 1.0 (13/12/2023). |
+| Bronze | `pdd_investment` | 5.484 | Plano de Desenvolvimento da Distribuição (PDD): investimentos das distribuidoras por CNPJ, UF, ano e tipo de obra, como publicados pela ANEEL. Fonte: Sem dicionário da ANEEL no repositório; descrição própria. |
+| Bronze | `voltage_conformity` | 5.506.240 | Informações anuais de índices de pagamento por determinado período em meses para Unidades Consumidoras a partir de agentes de distribuição. Fonte: dm-indicadores-de-conformidade-de-nivel-de-tensao.pdf, versão 1.1 (27/6/2025). |
 | Silver | `controle_anomalias_manifestacao` | 5.940 | Teste de meses anomalos das reclamacoes por distribuidora de grande porte, nivel, bloco      e mes. Evidencia da imputacao do comercial estrito no nivel 1 e sinalizador dos demais      blocos e do nivel 2. |
 | Silver | `dim_conjunto` | 3.980 | Conjuntos de unidades consumidoras, com o nome publicado e o periodo de      existencia na serie. O codigo e a identidade; o nome e apenas descritivo. |
 | Silver | `dim_distribuidora` | 105 | Dimensao conformada das distribuidoras, compartilhada por todas as metricas do      trabalho. Carrega o criterio de porte como atributo; o recorte do universo e      aplicado na Gold pela flag grande_porte, nao por filtro nesta tabela. |
@@ -32,6 +32,57 @@ Gerado do `information_schema` do catálogo `mvp_aneel` no Unity Catalog pelo no
 | Gold | `ranking_continuidade` | 64 | Ranking de variacao do DEC-FI e do FEC-FI entre as mesmas janelas das reclamacoes, no mesmo conjunto de distribuidoras do ranking de Qualidade. |
 | Gold | `ranking_evolucao` | 33 | Evolucao da continuidade entre o primeiro e o ultimo ano da janela, por distribuidora de grande porte. Reducao do DEC-FI indica melhora. |
 | Gold | `ranking_reclamacoes` | 382 | Rankings de variacao das reclamacoes por mil UCs entre a primeira e a ultima janela, por recorte e medida. Posicao 1 e a maior reducao; inclui a sensibilidade sem imputacao. |
+
+## Bronze
+
+### `bronze.complaints`
+
+Relação das manifestações dos consumidores em relação à distribuidora, por município, canal de atendimento e tipologia, no 1º nível (SAC) e no 2º nível (Ouvidoria) de atendimento. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026).
+
+| Coluna | Tipo | Descrição |
+|---|---|---|
+| `DatGeracaoConjuntoDados` | `string` | Data do processamento de carga automática no momento da geração para publicação do conjunto de dados abertos. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `DatReferencia` | `string` | Data de referência do envio das informações pela distribuidora à ANEEL. Os dados reportados referem-se às manifestações ocorridas no período de competência indicado pelos campos AnoCompetencia e MesCompetencia. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `SigAgente` | `string` | Sigla da distribuidora de energia elétrica regulada pela ANEEL. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `NumCPFCNPJ` | `string` | Número de inscrição da distribuidora no Cadastro Nacional da Pessoa Jurídica (CNPJ). Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `CodMunicipio` | `string` | Código do município, de acordo com o cadastro do IBGE, relacionado à manifestação do consumidor. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `NomMunicipio` | `string` | Nome do município, de acordo com o cadastro do IBGE, relacionado à manifestação do consumidor. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `SigUF` | `string` | Sigla da Unidade da Federação (UF) associada ao município da manifestação. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `SigRegiao` | `string` | Sigla da Região Geográfica do Brasil associada ao município da manifestação. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `NomClassificacaoAgente` | `string` | Classificação da distribuidora de energia elétrica. Pode assumir os valores Concessionária ou Permissionária. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `CodTipoManifestacao` | `string` | Código identificador da tipologia da manifestação (com até 7 dígitos). Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `NomCanalManifestacao` | `string` | Nível de atendimento em que a manifestação foi registrada: Nível 1 (SAC) ou Nível 2 (Ouvidoria). Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `DscManifestacao` | `string` | Descrição da tipologia da manifestação do consumidor associada aos identificadores informados nos campos CodTipoReclamacao e IdeTipoRCA. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `QtdManifestacoesRecebidas` | `string` | Quantidade de manifestações, do SAC ou da Ouvidoria, recebidas na referência apurada. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `QtdManifestacoesImprocedentes` | `string` | Quantidade de manifestações do SAC ou da Ouvidoria solucionadas e encerradas como improcedentes na referência apurada. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `QtdManifestacoesProcedentes` | `string` | Quantidade de manifestações do SAC ou da Ouvidoria solucionadas e encerradas como procedentes na referência apurada. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `NumPrazoMedioSolucao` | `string` | Prazo médio, em dias, para solução das manifestações procedentes registradas nos canais de atendimento da distribuidora. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `DscFormaContato` | `string` | Forma de contato utilizada pelo consumidor para registrar a manifestação (ex.: telefone, internet, presencial etc.). Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `NumSacPrazoMedioSolucaoImproc` | `string` | Prazo médio, em dias, para solução das manifestações improcedentes registradas no SAC (Serviço de Atendimento ao Cliente). Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `NumOuvPrazoMedioSolucaoImproc` | `string` | Prazo médio, em dias, para solução das manifestações improcedentes registradas na Ouvidoria. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `IdeTipoRCA` | `string` | Identificador da tipologia da manifestação do consumidor utilizado na estrutura atual do sistema. Corresponde à evolução do campo CodTipoReclamacao. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `AnoCompetencia` | `string` | Ano de competência das manifestações dos consumidores registradas no conjunto de dados. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `MesCompetencia` | `string` | Mês de competência das manifestações dos consumidores registradas no conjunto de dados. Fonte: dm-manifestacoes-nos-1-e-2-niveis-da-distribuidora.pdf, versão 1.2 (30/07/2026). |
+| `_source_file` | `string` | Nome do arquivo de origem no volume de landing. Fonte: Linhagem própria deste trabalho, gravada na ingestão. |
+| `_ingested_at` | `timestamp` | Momento da ingestão, em UTC, comum a todas as linhas da mesma execução. Fonte: Linhagem própria deste trabalho, gravada na ingestão. |
+
+### `bronze.continuity_indicators`
+
+O conjunto de dados apresenta valores apurados dos indicadores coletivos de continuidade DEC (Duração Equivalente de Interrupção por Unidade Consumidora), expresso em horas e centésimos de horas, e FEC (Frequência Equivalente de Interrupção por Unidade Consumidora), expresso em número de interrupções e centésimos do número de interrupções. Também são fornecidas as parcelas desagregadas dos indicadores. Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022).
+
+| Coluna | Tipo | Descrição |
+|---|---|---|
+| `DatGeracaoConjuntoDados` | `date` | Data do processamento de carga automática no momento da geração para publicação do conjunto de dados abertos. Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `IdeConjUndConsumidoras` | `bigint` | Identificador do Conjunto de Unidades Consumidoras. Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `DscConjUndConsumidoras` | `string` | Descrição do Conjunto de Unidades Consumidoras Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `SigAgente` | `string` | Sigla que abrevia o nome dos Agentes regulados pela ANEEL Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `NumCNPJ` | `bigint` | CNPJ do Agente do setor elétrico conforme cadastro de agentes da ANEEL Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `SigIndicador` | `string` | Sigla do Tipo de Indicador. As siglas e descrições completas estão no arquivo dominio-indicadores.csv, versionado em data/reference/dominio_indicadores_aneel.csv. Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `AnoIndice` | `bigint` | Ano de competência do índice. Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `NumPeriodoIndice` | `bigint` | Período do índice expressado em meses. Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `VlrIndiceEnviado` | `double` | Valor do índice enviado. Fonte: dm-indicadores-continuidade.pdf, versão 1.0 (6/6/2022). |
+| `_source_file` | `string` | Nome do arquivo de origem no volume de landing. Fonte: Linhagem própria deste trabalho, gravada na ingestão. |
+| `_ingested_at` | `timestamp` | Momento da ingestão, em UTC, comum a todas as linhas da mesma execução. Fonte: Linhagem própria deste trabalho, gravada na ingestão. |
 
 ## Silver
 
